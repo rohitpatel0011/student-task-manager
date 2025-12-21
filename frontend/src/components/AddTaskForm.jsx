@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { FaPlus, FaCalendarAlt, FaFlag } from 'react-icons/fa';
-
+import { API_ENDPOINTS } from '../config/api';
 const AddTaskForm = ({ onTaskAdded }) => {
   const [formData, setFormData] = useState({
     title: '',
@@ -24,7 +24,7 @@ const AddTaskForm = ({ onTaskAdded }) => {
 
     setLoading(true);
     try {
-      await axios.post('http://localhost:8080/api/tasks', formData);
+      await axios.post(API_ENDPOINTS.TASKS, formData);
       setFormData({
         title: '',
         description: '',

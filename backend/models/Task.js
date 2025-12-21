@@ -23,7 +23,7 @@ const taskSchema = new mongoose.Schema({
     default: false
   }
 }, {
-  timestamps: true // createdAt aur updatedAt automatically add karega
+  timestamps: true
 });
 
 module.exports = mongoose.model('Task', taskSchema);

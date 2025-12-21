@@ -9,15 +9,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Backend is running.....!');
+});
+
 // Database connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Database is Connected....!'))
   .catch(err => console.log(' MongoDB Connection Error:', err));
 
 // Basic route
-app.get('/', (req, res) => {
-  res.send('Backend is running.....!');
-});
 
 // Routes
 const taskRoutes = require('./routes/taskRoutes')

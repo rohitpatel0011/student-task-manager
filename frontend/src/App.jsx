@@ -8,8 +8,9 @@ import TaskList from './components/TaskList';
 import FilterBar from './components/FilterBar';
 import Header from './components/Header';
 import StatsDashboard from './components/StatsDashboard';
+import { API_ENDPOINTS } from './config/api';
 
-const API_URL = 'http://localhost:8080/api/tasks';
+// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/tasks';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -22,7 +23,7 @@ function App() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get(API_ENDPOINTS.TASKS);
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);

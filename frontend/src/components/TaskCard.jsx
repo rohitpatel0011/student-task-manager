@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { FaEdit, FaTrash, FaCalendarAlt, FaClock } from 'react-icons/fa';
 import { format, isAfter } from 'date-fns';
+import { API_ENDPOINTS } from '../config/api';
 
 const TaskCard = ({ task, onTaskUpdated }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -9,7 +10,7 @@ const TaskCard = ({ task, onTaskUpdated }) => {
 
   const toggleComplete = async () => {
     try {
-      await axios.put(`http://localhost:8080/api/tasks/${task._id}`, {
+      await axios.put(`${API_ENDPOINTS.TASKS}/${task._id}`, {
         ...task,
         completed: !task.completed
       });
@@ -22,7 +23,7 @@ const TaskCard = ({ task, onTaskUpdated }) => {
   const handleDelete = async () => {
     if (window.confirm('Delete this task permanently?')) {
       try {
-        await axios.delete(`http://localhost:8080/api/tasks/${task._id}`);
+        await axios.delete(`${API_ENDPOINTS.TASKS}/${task._id}`);
         onTaskUpdated();
       } catch (error) {
         console.error('Error deleting task:', error);
@@ -32,7 +33,7 @@ const TaskCard = ({ task, onTaskUpdated }) => {
 
   const handleEdit = async () => {
     try {
-      await axios.put(`http://localhost:8080/api/tasks/${task._id}`, editData);
+      await axios.put(`${API_ENDPOINTS.TASKS}/${task._id}`, editData);
       setIsEditing(false);
       onTaskUpdated();
     } catch (error) {
