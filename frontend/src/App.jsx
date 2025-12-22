@@ -1,5 +1,3 @@
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -10,7 +8,7 @@ import Header from './components/Header';
 import StatsDashboard from './components/StatsDashboard';
 import { API_ENDPOINTS } from './config/api';
 
-// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/tasks';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/tasks';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -23,6 +21,7 @@ function App() {
 
   const fetchTasks = async () => {
     try {
+      console.log('Fetching from:', API_ENDPOINTS.TASKS);
       const response = await axios.get(API_ENDPOINTS.TASKS);
       setTasks(response.data);
     } catch (error) {
