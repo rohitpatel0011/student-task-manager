@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware - FIXED CORS
+// Middleware - 
 app.use(cors({
   origin: ['https://student-task-manager-amber.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
