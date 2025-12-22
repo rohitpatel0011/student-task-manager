@@ -8,8 +8,6 @@ import Header from './components/Header';
 import StatsDashboard from './components/StatsDashboard';
 import { API_ENDPOINTS } from './config/api';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/tasks';
-
 function App() {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState('all');

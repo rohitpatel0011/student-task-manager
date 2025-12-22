@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
+// Middleware - FIXED CORS
 app.use(cors({
   origin: ['https://student-task-manager-amber.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -13,9 +13,9 @@ app.use(cors({
   credentials: true
 }));
 
-app.options('*', cors());
 app.use(express.json());
 
+// Root route
 app.get('/', (req, res) => {
   res.send('Backend is running.....!');
 });
@@ -25,14 +25,12 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Database is Connected....!'))
   .catch(err => console.log(' MongoDB Connection Error:', err));
 
-// Basic route
-
 // Routes
-const taskRoutes = require('./routes/taskRoutes')
+const taskRoutes = require('./routes/taskRoutes');
 app.use('/api/tasks', taskRoutes);
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
