@@ -1,73 +1,55 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
 import './App.css';
-import AddTaskForm from './components/AddTaskForm';
-import TaskList from './components/TaskList';
-import FilterBar from './components/FilterBar';
-import Header from './components/Header';
-import StatsDashboard from './components/StatsDashboard';
-import { API_ENDPOINTS } from './config/api';
+
+// Protected Route: Sirf logged-in users ke liye
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) return <div className="loading">Checking Auth...</div>;
+
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
+};
+
+// Public Route: Logged-in users ko wapas Dashboard bhejne ke liye
+const PublicRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) return <div className="loading">Checking Auth...</div>;
+
+  return !isAuthenticated ? children : <Navigate to="/dashboard" replace />;
+};
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [filter, setFilter] = useState('all');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  const fetchTasks = async () => {
-    try {
-      console.log('Fetching from:', API_ENDPOINTS.TASKS);
-      const response = await axios.get(API_ENDPOINTS.TASKS);
-      setTasks(response.data);
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <div className="background-container">
-      <div className="sphere-grid-background"></div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-      <div className="content">
-        <Header />
-        <div className="main-layout">
-          <div className="left-panel">
-            <div className="form-container">
-              <AddTaskForm onTaskAdded={fetchTasks} />
-            </div>
+          <Route path="/login" element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          } />
 
-            <div className="stats-container">
-              <StatsDashboard tasks={tasks} />
-            </div>
-          </div>
+          <Route path="/signup" element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          } />
 
-          <div className="right-panel">
-            <div className="tasks-header">
-              <h2> Your Tasks</h2>
-              <FilterBar filter={filter} setFilter={setFilter} />
-            </div>
-
-            {loading ? (
-              <div className="loading-container">
-                <div className="spinner"></div>
-                <p>Loading tasks...</p>
-              </div>
-            ) : (
-              <TaskList
-                tasks={tasks}
-                filter={filter}
-                onTaskUpdated={fetchTasks}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

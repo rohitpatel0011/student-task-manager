@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,25 +17,31 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Password is required'],
-    minlength: 6
+    minlength: 6,
+    select: false
   }
 }, {
   timestamps: true
 });
 
-// * Hash password before saving
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+// 🔥 FIX IS HERE: 'next' parameter hata diya
+userSchema.pre('save', async function () {
+
+  // Agar password modify nahi hua toh function yahin rook jaye
+  if (!this.isModified('password')) {
+    return;
+  }
+
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-    next();
+    // Yahan next() call karne ki zarurat nahi hai, async function khud handle kar lega
   } catch (error) {
-    next(error);
+    throw error; // Error ko throw karein taaki Mongoose usse pakad sake
   }
 });
 
-//* ----Compare password method
+// Compare password method (Ye same rahega)
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };

@@ -1,3 +1,4 @@
+import { IoStatsChart } from "react-icons/io5";
 const StatsDashboard = ({ tasks }) => {
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(t => t.completed).length;
@@ -10,7 +11,7 @@ const StatsDashboard = ({ tasks }) => {
 
   return (
     <div className="stats-dashboard">
-      <h3> Task Statistics</h3>
+      <h3><IoStatsChart /> Task Statistics</h3>
 
       <div className="stats-grid">
         <div className="stat-card">

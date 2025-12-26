@@ -4,6 +4,7 @@ import { FaEdit, FaTrash, FaCalendarAlt, FaClock } from 'react-icons/fa';
 import { format, isAfter } from 'date-fns';
 import { API_ENDPOINTS } from '../config/api';
 
+
 const TaskCard = ({ task, onTaskUpdated }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({ ...task });
@@ -33,7 +34,7 @@ const TaskCard = ({ task, onTaskUpdated }) => {
 
   const handleEdit = async () => {
     try {
-      await axios.put(`${API_ENDPOINTS.TASKS}/${task._id}`, editData);
+      await axios.put(`${API_ENDPOINTS.TASKS}${task._id}`, editData);
       setIsEditing(false);
       onTaskUpdated();
     } catch (error) {

@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware - 
+// Middleware - CORS
 app.use(cors({
   origin: ['https://student-task-manager-amber.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -22,15 +22,20 @@ app.get('/', (req, res) => {
 
 // Database connection
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('Database is Connected....!'))
-  .catch(err => console.log(' MongoDB Connection Error:', err));
+  .then(() => console.log('✅ Database is Connected....!'))
+  .catch(err => console.log('❌ MongoDB Connection Error:', err));
+
+// Import routes
+const authRoutes = require('./routes/authRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 // Routes
-const taskRoutes = require('./routes/taskRoutes');
+app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 
 // Start server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🔐 JWT Secret: ${process.env.JWT_SECRET ? 'Set' : 'Not set!'}`);
 });

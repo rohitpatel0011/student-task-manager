@@ -1,0 +1,216 @@
+/* ===== BACKGROUND STYLES ===== */
+.background-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: var(--white);
+}
+
+.sphere-grid-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--white);
+  /* Changed purple gradients to subtle Gray/Slate for minimalist look */
+  background-image:
+    linear-gradient(to right, rgba(23, 23, 23, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(23, 23, 23, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(23, 23, 23, 0.05) 0%, transparent 60%);
+  background-size: 40px 40px, 40px 40px, 100% 100%;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* ===== DASHBOARD HEADER ===== */
+.dashboard-header {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 20px 40px;
+  /* Cleaner border instead of heavy shadow */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.header-left h1 {
+  color: var(--gray-900);
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.header-left p {
+  color: var(--gray-500);
+  font-size: 14px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gray-100);
+  padding: 8px 15px;
+  border-radius: 20px;
+  color: var(--gray-700);
+  font-size: 14px;
+  border: 1px solid var(--gray-200);
+}
+
+.user-info svg {
+  color: var(--primary-color);
+}
+
+.logout-btn {
+  /* Solid Black Button */
+  background: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== MAIN LAYOUT ===== */
+.dashboard-main {
+  padding: 30px 0px;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 30px;
+}
+
+/* ===== FORM CONTAINER ===== */
+.form-container {
+  background: var(--white);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--gray-200);
+}
+
+/* ===== STATS CONTAINER ===== */
+.stats-container {
+  background: var(--white);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-top: 20px;
+  border: 1px solid var(--gray-200);
+}
+
+/* ===== TASKS HEADER ===== */
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--gray-200);
+}
+
+.tasks-header h2 {
+  color: var(--gray-900);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== LOADING ===== */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: var(--white);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--gray-200);
+}
+
+.loading-container p {
+  margin-top: 15px;
+  color: var(--gray-500);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--gray-200);
+  border-top: 4px solid var(--primary-color); /* Black Spinner */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .left-panel {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dashboard-main {
+    padding: 20px;
+  }
+
+  .tasks-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}
