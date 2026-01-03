@@ -47,19 +47,19 @@ const Signup = () => {
     setLoading(true);
     try {
       // ✅ DEBUG: Check what URL we're using
-      console.log('API_ENDPOINTS:', API_ENDPOINTS);
-      console.log('Signup URL:', API_ENDPOINTS.AUTH?.SIGNUP);
+      // console.log('API_ENDPOINTS:', API_ENDPOINTS);
+      // console.log('Signup URL:', API_ENDPOINTS.AUTH?.SIGNUP);
 
       // ✅ Use correct API endpoint
       const SIGNUP_URL = API_ENDPOINTS.AUTH?.SIGNUP ||
         'https://student-task-manager-backend-uiu9.onrender.com/api/auth/signup';
 
-      console.log('Final URL:', SIGNUP_URL);
-      console.log('Data:', {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password
-      });
+      // console.log('Final URL:', SIGNUP_URL);
+      // console.log('Data:', {
+      //   name: formData.name,
+      //   email: formData.email,
+      //   password: formData.password
+      // });
 
       const response = await axios.post(
         SIGNUP_URL,
@@ -70,7 +70,7 @@ const Signup = () => {
         }
       );
 
-      console.log('✅ Signup Success:', response.data);
+      // console.log('✅ Signup Success:', response.data);
 
       // Save to localStorage
       localStorage.setItem('token', response.data.token);

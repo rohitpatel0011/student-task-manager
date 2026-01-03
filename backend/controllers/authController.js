@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-// Token Generator Helper
+//* Token Generator Helper ========
 const generateToken = (userId) => {
   return jwt.sign(
     { userId },
@@ -10,26 +10,26 @@ const generateToken = (userId) => {
   );
 };
 
-// @desc    Register new user
-// @route   POST /api/auth/signup
+
+//* Route POST /api/auth/signup ========
 exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // 1. Check if user already exists
+    //=== Checking if user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ error: 'Email already exists' });
     }
 
-    // 2. Create User (Password Hashing automatically Model karega)
+    //==== Create User
     const user = await User.create({
       name,
       email,
-      password // Plain password bhejo, Model ka pre-save hook isse hash kar dega
+      password
     });
 
-    // 3. Generate Token
+    //=== Generate Token
     const token = generateToken(user._id);
 
     res.status(201).json({
@@ -48,33 +48,33 @@ exports.signup = async (req, res) => {
   }
 };
 
-// @desc    Login user
-// @route   POST /api/auth/login
+
+//== Route POST /api/auth/login
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 1. Check email and password
+    //==== Check email and password
     if (!email || !password) {
       return res.status(400).json({ error: 'Please provide email and password' });
     }
 
-    // 2. Find user & select password explicitly
+    // == Find user & select password explicitly
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // 3. Check Password
+    //==== Checking Password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // 4. Generate Token
+    // ==== Generate Token
     const token = generateToken(user._id);
 
-    // Remove password from response
+    // ===== Remove password from response
     const userResponse = user.toObject();
     delete userResponse.password;
 
