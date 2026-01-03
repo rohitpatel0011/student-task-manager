@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [loading, setLoading] = useState(true);
 
-  // 1. Token change hone par Axios Header set karein
+
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  // 2. App Load hone par User Load karein
   useEffect(() => {
     const initAuth = async () => {
       const storedUser = localStorage.getItem('user');
@@ -42,7 +41,6 @@ export const AuthProvider = ({ children }) => {
     initAuth();
   }, []);
 
-  // 3. Login Function (State + Storage Update)
   const login = async (email, password) => {
     try {
       const response = await axios.post(API_ENDPOINTS.AUTH.LOGIN, {
@@ -52,11 +50,10 @@ export const AuthProvider = ({ children }) => {
 
       const { user: userData, token: newToken } = response.data;
 
-      // Pehle State update karein (React ko batayein)
+
       setUser(userData);
       setToken(newToken);
 
-      // Fir Storage update karein
       localStorage.setItem('user', JSON.stringify(userData));
 
       return { success: true };
@@ -69,7 +66,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // 4. Signup Function
+
   const signup = async (name, email, password) => {
     try {
       const response = await axios.post(API_ENDPOINTS.AUTH.SIGNUP, {
@@ -93,7 +90,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // 5. Logout Function
   const logout = () => {
     setUser(null);
     setToken('');
@@ -105,7 +101,7 @@ export const AuthProvider = ({ children }) => {
     user,
     token,
     loading,
-    isAuthenticated: !!token, // Simple logic: Token hai toh logged in hai
+    isAuthenticated: !!token,
     login,
     signup,
     logout

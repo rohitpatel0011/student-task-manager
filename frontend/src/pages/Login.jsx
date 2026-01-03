@@ -9,7 +9,7 @@ const Login = () => {
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
-  const { login } = useAuth(); // ✅ Context se login function nikala
+  const { login } = useAuth(); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { FaEdit, FaTrash, FaCalendarAlt, FaClock } from 'react-icons/fa';
+import {  FaTrash, FaCalendarAlt, FaClock } from 'react-icons/fa';
 import { format, isAfter } from 'date-fns';
 import { API_ENDPOINTS } from '../config/api';
-
+import { FaEdit } from "react-icons/fa";
 
 const TaskCard = ({ task, onTaskUpdated }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -32,13 +32,22 @@ const TaskCard = ({ task, onTaskUpdated }) => {
     }
   };
 
+  // ✅ FIXED: Add / before task._id
   const handleEdit = async () => {
     try {
-      await axios.put(`${API_ENDPOINTS.TASKS}${task._id}`, editData);
+      console.log('Editing URL:', `${API_ENDPOINTS.TASKS}/${task._id}`);
+      console.log('Edit data:', editData);
+
+      await axios.put(`${API_ENDPOINTS.TASKS}/${task._id}`, editData);
       setIsEditing(false);
       onTaskUpdated();
     } catch (error) {
-      console.error('Error editing task:', error);
+      console.error('Error editing task:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        url: `${API_ENDPOINTS.TASKS}/${task._id}`
+      });
     }
   };
 
@@ -53,6 +62,7 @@ const TaskCard = ({ task, onTaskUpdated }) => {
           onChange={(e) => setEditData({ ...editData, title: e.target.value })}
           className="modern-input"
           placeholder="Task title"
+          required
         />
         <textarea
           value={editData.description}
@@ -73,9 +83,10 @@ const TaskCard = ({ task, onTaskUpdated }) => {
           </select>
           <input
             type="date"
-            value={editData.dueDate.split('T')[0]}
+            value={editData.dueDate ? editData.dueDate.split('T')[0] : ''}
             onChange={(e) => setEditData({ ...editData, dueDate: e.target.value })}
             className="modern-input"
+            required
           />
         </div>
         <div className="edit-actions">
@@ -111,7 +122,7 @@ const TaskCard = ({ task, onTaskUpdated }) => {
           <div className="task-meta">
             <div className={`due-date ${isOverdue ? 'overdue' : ''}`}>
               <FaCalendarAlt />
-              {format(new Date(task.dueDate), 'MMM dd, yyyy')}
+              {task.dueDate ? format(new Date(task.dueDate), 'MMM dd, yyyy') : 'No due date'}
               {isOverdue && <FaClock />}
             </div>
 
