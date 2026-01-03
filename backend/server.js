@@ -7,11 +7,11 @@ const app = express();
 
 // Middleware - CORS
 app.use(cors({
-  origin: ['https://student-task-manager-amber.vercel.app', 'http://localhost:5173'],
+  origin: ['https://insatask.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
-}));
+}));j
 
 app.use(express.json());
 
