@@ -325,11 +325,11 @@
   background: rgba(102, 126, 234, 0.1);
 }
 
-.nav-item.active {
+/* .nav-item.active {
   color: #667eea;
   background: rgba(102, 126, 234, 0.15);
   font-weight: 600;
-}
+} */
 
 .nav-icon {
   font-size: 18px;
@@ -352,9 +352,9 @@
     padding-bottom: 70px; /* Space for bottom nav */
   }
 
-  .dashboard-main {
+  /* .dashboard-main {
     padding: 15px;
-  }
+  } */
 
   /* Mobile specific adjustments */
   .mobile-cards {
@@ -462,12 +462,12 @@
 }
 
 .nav-icon-wrapper svg {
-  color: #000;
+  color: #000000;
 }
 
-.nav-item.active .nav-icon-wrapper svg {
+/* .nav-item.active .nav-icon-wrapper svg {
   color: #6366f1;
-}
+} */
 
 .nav-label {
   font-weight: 500;
@@ -545,7 +545,7 @@
 }
 
 .task-count {
-  background: #6366f1;
+  background: var(--primary-color);
   color: white;
   padding: 2px 8px;
   border-radius: 12px;

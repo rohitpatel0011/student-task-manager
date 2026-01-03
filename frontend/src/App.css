@@ -194,7 +194,7 @@ input, textarea, select {
 .content {
   position: relative;
   z-index: 10;
-  padding: 20px;
+  /* padding: 20px; */
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -889,8 +889,8 @@ input, textarea, select {
 }
 
 .nav-item.active {
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.1);
+  color: #000000;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .nav-icon {
@@ -904,12 +904,12 @@ input, textarea, select {
 
 /* Mobile Header for Views */
 .mobile-view {
-  padding: 15px;
+  /* padding: 15px; */
   padding-bottom: 80px; /* Space for bottom nav */
 }
 
 .mobile-header {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   padding-bottom: 15px;
   border-bottom: 2px solid #e5e7eb;
 }
@@ -925,9 +925,7 @@ input, textarea, select {
     padding-bottom: 70px; /* Space for bottom nav */
   }
 
-  .content {
-    padding-bottom: 0;
-  }
+
 }
 
 /* Hide desktop elements on mobile */
@@ -973,11 +971,7 @@ input, textarea, select {
     font-size: 14px;
   }
 
-  /* Adjust content spacing */
-  .content {
-    padding: 15px;
-    padding-bottom: 70px; /* Space for bottom nav */
-  }
+
 }
 
 /* Mobile (480px and below) */

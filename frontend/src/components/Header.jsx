@@ -1,5 +1,6 @@
 import { SiTask } from "react-icons/si";
 import { FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { MdOutlineTaskAlt } from "react-icons/md";
 
 
 const Header = ({user, handleLogout}) => {
@@ -7,7 +8,7 @@ const Header = ({user, handleLogout}) => {
     <header className="dashboard-header">
       <div className="header-left">
 
-        <h1>   <SiTask /> Student Task Manager</h1>
+        <h1>   <MdOutlineTaskAlt /> Student Task Manager</h1>
         <p>Welcome back, {user?.name}!</p>
       </div>
 

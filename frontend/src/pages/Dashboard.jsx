@@ -6,11 +6,11 @@ import AddTaskForm from '../components/AddTaskForm';
 import TaskList from '../components/TaskList';
 import FilterBar from '../components/FilterBar';
 import StatsDashboard from '../components/StatsDashboard';
-import BottomNav from '../components/BottomNav'; // ✅ New Component
+import BottomNav from '../components/BottomNav';
 import Header from "../components/Header";
 import '../styles/Dashboard.css';
 
-// React Icons (Black color)
+
 import {
   SiGoogletasks,
 
@@ -30,10 +30,10 @@ const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
-  const [activeView, setActiveView] = useState('tasks'); // ✅ Mobile view state
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // ✅ Detect mobile
+  const [activeView, setActiveView] = useState('tasks');
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  // Detect screen size
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -62,7 +62,7 @@ const Dashboard = () => {
     logout();
   };
 
-  // ✅ Mobile Views Renderer
+
   const renderMobileView = () => {
     switch (activeView) {
       case 'home':
@@ -72,7 +72,7 @@ const Dashboard = () => {
               <h2 className="mobile-title">
                 <FaHome className="mobile-icon" /> Dashboard
               </h2>
-              <p className="welcome-text">Welcome back, {user?.name}! 👋</p>
+              <p className="welcome-text">Welcome back, <i>{user?.name}...</i>!</p>
 
               <div className="quick-stats">
                 <div className="stat-item">
@@ -193,7 +193,7 @@ const Dashboard = () => {
     }
   };
 
-  // ✅ Desktop View (Original Layout)
+
   const renderDesktopView = () => (
     <div className="main-layout">
       <div className="left-panel">
